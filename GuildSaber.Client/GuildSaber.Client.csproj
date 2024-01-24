@@ -6,6 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <PropertyGroup>
+      <NoWarn>$(NoWarn);CS8625;CS8603;CS8600;CS8618;CS8602;CS8629;CS8601;CS8604</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Include="..\ChatPlexSDK\Logging\ILogger.cs">
       <Link>ChatPlex_SDK\Logging\ILogger.cs</Link>
