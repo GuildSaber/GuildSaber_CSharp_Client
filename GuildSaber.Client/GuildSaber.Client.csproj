@@ -1,0 +1,374 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>11</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\ChatPlexSDK\Logging\ILogger.cs">
+      <Link>ChatPlex_SDK\Logging\ILogger.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\ChatPlexSDK\Misc\Time.cs">
+      <Link>ChatPlex_SDK\Misc\Time.cs</Link>
+    </Compile>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Include="..\ChatPlexSDK\Network\IWebClient.cs">
+      <Link>ChatPlex_SDK\Network\IWebClient.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\JsonRPCResult.cs">
+      <Link>ChatPlex_SDK\Network\JsonRPCResult.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\BaseChannel.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\BaseChannel.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\ConnectionRequest.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\ConnectionRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\INetEventListener.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\INetEventListener.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\Layers\Crc32cLayer.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\Layers\Crc32cLayer.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\Layers\PacketLayerBase.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\Layers\PacketLayerBase.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\Layers\XorEncryptLayer.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\Layers\XorEncryptLayer.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\NatPunchModule.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\NatPunchModule.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\NetConstants.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\NetConstants.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\NetDebug.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\NetDebug.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\NetManager.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\NetManager.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\NetPacket.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\NetPacket.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\NetPacketPool.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\NetPacketPool.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\NetPeer.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\NetPeer.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\NetSocket.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\NetSocket.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\NetStatistics.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\NetStatistics.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\NetUtils.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\NetUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\ReliableChannel.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\ReliableChannel.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\SequencedChannel.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\SequencedChannel.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\Utils\CRC32C.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\Utils\CRC32C.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\Utils\FastBitConverter.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\Utils\FastBitConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\Utils\INetSerializable.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\Utils\INetSerializable.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\Utils\NetDataReader.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\Utils\NetDataReader.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\Utils\NetDataWriter.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\Utils\NetDataWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\Utils\NetPacketProcessor.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\Utils\NetPacketProcessor.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\Utils\NetSerializer.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\Utils\NetSerializer.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\Utils\NtpPacket.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\Utils\NtpPacket.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\LiteNetLib\Utils\NtpRequest.cs">
+      <Link>ChatPlex_SDK\Network\LiteNetLib\Utils\NtpRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\RateLimitInfo.cs">
+      <Link>ChatPlex_SDK\Network\RateLimitInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\WebClientCore.cs">
+      <Link>ChatPlex_SDK\Network\WebClientCore.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\WebClientUnity.cs">
+      <Link>ChatPlex_SDK\Network\WebClientUnity.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\WebContent.cs">
+      <Link>ChatPlex_SDK\Network\WebContent.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\WebResponse.cs">
+      <Link>ChatPlex_SDK\Network\WebResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\ByteOrder.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\ByteOrder.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\CloseEventArgs.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\CloseEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\CloseStatusCode.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\CloseStatusCode.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\CompressionMethod.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\CompressionMethod.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\ErrorEventArgs.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\ErrorEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Ext.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Ext.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Fin.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Fin.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\HttpBase.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\HttpBase.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\HttpRequest.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\HttpRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\HttpResponse.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\HttpResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\LogData.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\LogData.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Logger.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Logger.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\LogLevel.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\LogLevel.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Mask.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Mask.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\MessageEventArgs.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\MessageEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\AuthenticationBase.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\AuthenticationBase.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\AuthenticationChallenge.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\AuthenticationChallenge.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\AuthenticationResponse.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\AuthenticationResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\AuthenticationSchemes.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\AuthenticationSchemes.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\Chunk.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\Chunk.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\ChunkedRequestStream.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\ChunkedRequestStream.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\ChunkStream.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\ChunkStream.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\ClientSslConfiguration.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\ClientSslConfiguration.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\Cookie.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\Cookie.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\CookieCollection.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\CookieCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\CookieException.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\CookieException.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\EndPointListener.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\EndPointListener.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\EndPointManager.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\EndPointManager.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\HttpBasicIdentity.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\HttpBasicIdentity.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\HttpConnection.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\HttpConnection.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\HttpDigestIdentity.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\HttpDigestIdentity.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\HttpHeaderInfo.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\HttpHeaderInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\HttpHeaderType.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\HttpHeaderType.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\HttpListener.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\HttpListener.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\HttpListenerAsyncResult.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\HttpListenerAsyncResult.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\HttpListenerContext.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\HttpListenerContext.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\HttpListenerException.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\HttpListenerException.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\HttpListenerPrefix.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\HttpListenerPrefix.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\HttpListenerPrefixCollection.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\HttpListenerPrefixCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\HttpListenerRequest.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\HttpListenerRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\HttpListenerResponse.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\HttpListenerResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\HttpRequestHeader.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\HttpRequestHeader.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\HttpResponseHeader.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\HttpResponseHeader.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\HttpStatusCode.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\HttpStatusCode.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\HttpStreamAsyncResult.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\HttpStreamAsyncResult.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\HttpUtility.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\HttpUtility.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\HttpVersion.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\HttpVersion.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\InputChunkState.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\InputChunkState.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\InputState.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\InputState.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\LineState.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\LineState.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\NetworkCredential.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\NetworkCredential.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\QueryStringCollection.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\QueryStringCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\ReadBufferState.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\ReadBufferState.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\RequestStream.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\RequestStream.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\ResponseStream.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\ResponseStream.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\ServerSslConfiguration.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\ServerSslConfiguration.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\WebHeaderCollection.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\WebHeaderCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\WebSockets\HttpListenerWebSocketContext.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\WebSockets\HttpListenerWebSocketContext.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\WebSockets\TcpListenerWebSocketContext.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\WebSockets\TcpListenerWebSocketContext.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Net\WebSockets\WebSocketContext.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Net\WebSockets\WebSocketContext.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Opcode.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Opcode.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\PayloadData.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\PayloadData.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Rsv.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Rsv.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Server\HttpRequestEventArgs.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Server\HttpRequestEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Server\HttpServer.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Server\HttpServer.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Server\IWebSocketSession.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Server\IWebSocketSession.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Server\ServerState.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Server\ServerState.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Server\WebSocketBehavior.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Server\WebSocketBehavior.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Server\WebSocketServer.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Server\WebSocketServer.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Server\WebSocketServiceHost.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Server\WebSocketServiceHost.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Server\WebSocketServiceHost`1.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Server\WebSocketServiceHost`1.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Server\WebSocketServiceManager.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Server\WebSocketServiceManager.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\Server\WebSocketSessionManager.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\Server\WebSocketSessionManager.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\WebSocket.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\WebSocket.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\WebSocketException.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\WebSocketException.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\WebSocketFrame.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\WebSocketFrame.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\websocket-sharp\WebSocketState.cs">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\WebSocketState.cs</Link>
+    </Compile>
+    <Compile Include="..\ChatPlexSDK\Network\WebSocketClient.cs">
+      <Link>ChatPlex_SDK\Network\WebSocketClient.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\ChatPlexSDK\Network\websocket-sharp\LICENSE.txt">
+      <Link>ChatPlex_SDK\Network\websocket-sharp\LICENSE.txt</Link>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GuildSaber_Models\GuildSaber.Models.csproj" />
+  </ItemGroup>
+
+</Project>

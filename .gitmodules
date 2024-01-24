@@ -1,0 +1,6 @@
+[submodule "ChatPlexSDK"]
+	path = ChatPlexSDK
+	url = https://github.com/hardcpp/ChatPlexSDK.git
+[submodule "GuildSaber_Models"]
+	path = GuildSaber_Models
+	url = https://github.com/GuildSaber/GuildSaber_Models.git
