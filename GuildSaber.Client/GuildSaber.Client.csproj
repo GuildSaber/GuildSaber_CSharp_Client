@@ -4,10 +4,28 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>11</LangVersion>
     <Nullable>enable</Nullable>
+    <ParentDirectoryName>$([System.IO.Path]::GetFileName('$([System.IO.Path]::GetDirectoryName('$(MSBuildProjectDirectory)'))'))</ParentDirectoryName>
   </PropertyGroup>
 
   <PropertyGroup>
       <NoWarn>$(NoWarn);CS8625;CS8603;CS8600;CS8618;CS8602;CS8629;CS8601;CS8604</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <IsGuildSaberMod Condition="$(ParentDirectoryName) == 'GuildSaber_Mod'">true</IsGuildSaberMod>
+    <IsGuildSaberMod Condition="$(ParentDirectoryName) != 'GuildSaber_Mod'">false</IsGuildSaberMod>
+  </PropertyGroup>
+
+  <Target Name="CheckProjectDirectory" BeforeTargets="Build" Condition="'$(IsGuildSaberMod)' == 'true'">
+    <Message Text="The project is in the GuildSaber_Mod directory. Compiling with the Unity dependencies" Importance="high"/>
+  </Target>
+
+  <Target Name="CheckProjectDirectory" BeforeTargets="Build" Condition="'$(IsGuildSaberMod)' == 'false'">
+    <Message Text="The project is not the GuildSaber_Mod directory. Compiling without any unity dependencies" Importance="high"/>
+  </Target>
+
+  <PropertyGroup Condition="'$(IsGuildSaberMod)'">
+    <DefineConstants>CP_SDK_UNITY</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,7 +39,7 @@
       <Link>ChatPlex_SDK\Misc\Time.cs</Link>
     </Compile>
   </ItemGroup>
-  
+
   <ItemGroup>
     <Compile Include="..\ChatPlexSDK\Network\IWebClient.cs">
       <Link>ChatPlex_SDK\Network\IWebClient.cs</Link>
