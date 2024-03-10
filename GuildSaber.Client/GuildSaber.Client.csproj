@@ -4,7 +4,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>11</LangVersion>
     <Nullable>enable</Nullable>
-    <ParentDirectoryName>$([System.IO.Path]::GetFileName('$([System.IO.Path]::GetDirectoryName('$(MSBuildProjectDirectory)'))'))</ParentDirectoryName>
+    <ParentParentDirectoryName>$([System.IO.Path]::GetFileName('$([System.IO.Path]::GetDirectoryName('$([System.IO.Path]::GetDirectoryName('$(MSBuildProjectDirectory)'))'))'))</ParentParentDirectoryName>
+    <LocalRefsDir Condition="Exists('..\Refs')">..\Refs</LocalRefsDir>
+    <BeatSaberDir>$(BeatSaberDir)</BeatSaberDir>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -12,8 +14,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <IsGuildSaberMod Condition="$(ParentDirectoryName) == 'GuildSaber_Mod'">true</IsGuildSaberMod>
-    <IsGuildSaberMod Condition="$(ParentDirectoryName) != 'GuildSaber_Mod'">false</IsGuildSaberMod>
+    <IsGuildSaberMod Condition="$(ParentParentDirectoryName) == 'GuildSaber_Mod'">true</IsGuildSaberMod>
+    <IsGuildSaberMod Condition="$(ParentParentDirectoryName) != 'GuildSaber_Mod'">false</IsGuildSaberMod>
   </PropertyGroup>
 
   <Target Name="CheckProjectDirectory" BeforeTargets="Build" Condition="'$(IsGuildSaberMod)' == 'true'">
@@ -22,6 +24,8 @@
 
   <Target Name="CheckProjectDirectory" BeforeTargets="Build" Condition="'$(IsGuildSaberMod)' == 'false'">
     <Message Text="The project is not the GuildSaber_Mod directory. Compiling without any unity dependencies" Importance="high"/>
+    <!-- display actual value of ParentParentDirectoryName -->
+    <Message Text="ParentDirectoryName: $(ParentParentDirectoryName)" Importance="high"/>
   </Target>
 
   <PropertyGroup Condition="'$(IsGuildSaberMod)'">
@@ -29,8 +33,35 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule">
+      <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.UnityWebRequestModule.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="UnityEngine">
+    <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.dll</HintPath>
+    <Private>False</Private>
+  </Reference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="..\ChatPlexSDK\Logging\ILogger.cs">
       <Link>ChatPlex_SDK\Logging\ILogger.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\ChatPlexSDK\Unity\MTCoroutineStarter.cs">
+      <Link>ChatPlex_SDK\Unity\MTCoroutineStarter.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\ChatPlexSDK\Unity\MTThreadInvoker.cs">
+      <Link>ChatPlex_SDK\Unity\MTThreadInvoker.cs</Link>
     </Compile>
   </ItemGroup>
 
