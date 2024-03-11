@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !CP_SDK_UNITY
+using System;
 
 namespace CP_SDK;
 
@@ -67,3 +68,4 @@ public class CustomLogger : CP_SDK.Logging.ILogger
         }
     }
 }
+#endif
