@@ -1,9 +1,12 @@
 ﻿using CP_SDK.Network;
 using GuildSaber.ApiStruct;
+using GuildSaber.Client.Types;
 using GuildSaber.Enums;
 using GuildSaber.Models;
 using Newtonsoft.Json;
+using OneOf;
 using System;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
@@ -18,18 +21,18 @@ public class GuildEndpoints
         => _webClient = webClient;
 
     public void GetAllAsync(
-        uint                       page,
-        uint                       pageSize,
-        bool                       includeRankedCount,
-        bool                       includeMemberCount,
-        EGuildSorters              sortBy,
-        EOrder                     order,
-        EGuildType?                guildTypes     = null,
-        string?                    search         = null,
-        uint?                      userID         = null,
-        EPermission?               permissionFlag = null,
-        Action<PagedList<Guild?>>? callback       = null,
-        CancellationToken?         token          = null)
+        uint                                                 page,
+        uint                                                 pageSize,
+        bool                                                 includeRankedCount,
+        bool                                                 includeMemberCount,
+        EGuildSorters                                        sortBy,
+        EOrder                                               order,
+        EGuildType?                                          guildTypes     = null,
+        string?                                              search         = null,
+        uint?                                                userID         = null,
+        EPermission?                                         permissionFlag = null,
+        Action<OneOf<PagedList<Guild>, ProblemDetailsLite>>? callback       = null,
+        CancellationToken?                                   token          = null)
     {
         var l_UrlBuilder = new StringBuilder();
         l_UrlBuilder.Append("guilds");
@@ -56,18 +59,20 @@ public class GuildEndpoints
         _webClient.GetAsync(l_UrlBuilder.ToString(), token ?? CancellationToken.None, callback != null
             ? webResponse =>
             {
-                DebugLog(false);
-                callback.Invoke(JsonConvert.DeserializeObject<PagedList<Guild?>>(webResponse.BodyString));
+                if (webResponse.StatusCode != HttpStatusCode.OK)
+                    callback.Invoke(JsonConvert.DeserializeObject<ProblemDetailsLite>(webResponse.BodyString));
+                else
+                    callback.Invoke(JsonConvert.DeserializeObject<PagedList<Guild>>(webResponse.BodyString));
             }
-            : _ => { DebugLog(true); });
+            : _ => DebugLog());
     }
 
     public void GetAsync(
-        uint               guildID,
-        bool               includeRankedCount,
-        bool               includeMemberCount,
-        Action<Guild?>?    callback = null,
-        CancellationToken? token    = null)
+        uint                                      guildID,
+        bool                                      includeRankedCount,
+        bool                                      includeMemberCount,
+        Action<OneOf<Guild, ProblemDetailsLite>>? callback = null,
+        CancellationToken?                        token    = null)
     {
         var l_UrlBuilder = new StringBuilder();
         l_UrlBuilder.AppendFormat("guild/by-id/{0}", guildID);
@@ -76,16 +81,18 @@ public class GuildEndpoints
         _webClient.GetAsync(l_UrlBuilder.ToString(), token ?? CancellationToken.None, callback != null
             ? webResponse =>
             {
-                DebugLog(false);
-                callback.Invoke(JsonConvert.DeserializeObject<Guild?>(webResponse.BodyString)!);
+                if (webResponse.StatusCode != HttpStatusCode.OK)
+                    callback.Invoke(JsonConvert.DeserializeObject<ProblemDetailsLite>(webResponse.BodyString));
+                else
+                    callback.Invoke(JsonConvert.DeserializeObject<Guild>(webResponse.BodyString)!);
             }
-            : _ => { DebugLog(true); });
+            : _ => DebugLog());
     }
 
     public void GetStatsAsync(
-        uint                 guildID,
-        Action<GuildStats?>? callback = null,
-        CancellationToken?   token    = null)
+        uint                                           guildID,
+        Action<OneOf<GuildStats, ProblemDetailsLite>>? callback = null,
+        CancellationToken?                             token    = null)
     {
         var l_UrlBuilder = new StringBuilder();
         l_UrlBuilder.AppendFormat("guild/by-id/{0}/stats", guildID);
@@ -93,12 +100,14 @@ public class GuildEndpoints
         _webClient.GetAsync(l_UrlBuilder.ToString(), token ?? CancellationToken.None, callback != null
             ? webResponse =>
             {
-                DebugLog(false);
-                callback.Invoke(JsonConvert.DeserializeObject<GuildStats?>(webResponse.BodyString)!);
+                if (webResponse.StatusCode != HttpStatusCode.OK)
+                    callback.Invoke(JsonConvert.DeserializeObject<ProblemDetailsLite>(webResponse.BodyString));
+                else
+                    callback.Invoke(JsonConvert.DeserializeObject<GuildStats>(webResponse.BodyString)!);
             }
-            : _ => { DebugLog(true); });
+            : _ => DebugLog());
     }
 
-    public static void DebugLog(bool isNull, [CallerMemberName] string caller = "")
-        => GSClient.Logger?.Debug($"[{Constants.GUILD_ENDPOINT_DEBUG_NAME}.{caller}] {(isNull ? "No callback" : "Callback invoked")}");
+    public static void DebugLog([CallerMemberName] string caller = "")
+        => GSClient.Logger?.Debug($"[{Constants.GUILD_ENDPOINT_DEBUG_NAME}.{caller}] Executed with no callback");
 }

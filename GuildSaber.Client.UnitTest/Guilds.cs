@@ -1,6 +1,5 @@
 ﻿using GuildSaber.ApiStruct;
 using GuildSaber.Enums;
-using GuildSaber.Models;
 using Xunit;
 
 namespace GuildSaber.Client.UnitTest;
@@ -10,14 +9,13 @@ public class Guilds
     [Fact]
     public async Task GetAllAsyncReturnsNonEmptyList()
     {
-        var tcs = new TaskCompletionSource<List<Guild?>>();
+        var tcs = new TaskCompletionSource<bool>();
         GSClient.Guilds.GetAllAsync(1, 8, true, true, EGuildSorters.Name, EOrder.Asc,
-            callback: pagedList =>
+            callback: result =>
             {
-                // Validate the data here
+                Assert.True(result.TryPickT0(out var pagedList, out _), "Result is not a PagedList<Guild>");
                 Assert.NotEmpty(pagedList.Data);
-                // Set the TaskCompletionSource to a completed state
-                tcs.SetResult(pagedList.Data);
+                tcs.SetResult(true);
             });
 
         var result = await Task.WhenAny(tcs.Task, Task.Delay(Constants.TIMEOUT));
@@ -27,14 +25,13 @@ public class Guilds
     [Fact]
     public async Task GetAsyncReturnsNonNullGuild()
     {
-        var tcs = new TaskCompletionSource<Guild?>();
+        var tcs = new TaskCompletionSource<bool>();
         GSClient.Guilds.GetAsync(1, true, true,
-            guild =>
+            result =>
             {
-                // Validate the data here
+                Assert.True(result.TryPickT0(out var guild, out _), "Result is not a Guild");
                 Assert.NotNull(guild);
-                // Set the TaskCompletionSource to a completed state
-                tcs.SetResult(guild);
+                tcs.SetResult(true);
             });
 
         var result = await Task.WhenAny(tcs.Task, Task.Delay(Constants.TIMEOUT)); // 1 second timeout
@@ -45,11 +42,9 @@ public class Guilds
     public async Task GetStatsAsyncReturnsNonNullStats()
     {
         var tcs = new TaskCompletionSource<GuildStats?>();
-        GSClient.Guilds.GetStatsAsync(1, stats =>
+        GSClient.Guilds.GetStatsAsync(1, result =>
         {
-            // Validate the data here
-            Assert.NotNull(stats);
-            // Set the TaskCompletionSource to a completed state
+            Assert.True(result.TryPickT0(out var stats, out _), "Result is not a GuildStats");
             tcs.SetResult(stats);
         });
 

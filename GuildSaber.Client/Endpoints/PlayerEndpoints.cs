@@ -1,8 +1,11 @@
 ﻿using CP_SDK.Network;
 using GuildSaber.ApiStruct;
+using GuildSaber.Client.Types;
 using GuildSaber.Enums;
 using Newtonsoft.Json;
+using OneOf;
 using System;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
@@ -17,10 +20,10 @@ public class PlayerEndpoints
         => _webClient = webClient;
 
     public void GetAsync(
-        int                           userId,
-        EIncludeFlags                 includeFlags,
-        Action<PlayerResponseStruct?>? callback = null,
-        CancellationToken?            token    = null)
+        int                                                      userId,
+        EIncludeFlags                                            includeFlags,
+        Action<OneOf<PlayerResponseStruct, ProblemDetailsLite>>? callback = null,
+        CancellationToken?                                       token    = null)
     {
         var l_UrlBuilder = new StringBuilder();
         l_UrlBuilder.Append("player/by-id/");
@@ -32,32 +35,37 @@ public class PlayerEndpoints
         _webClient.GetAsync(l_UrlBuilder.ToString(), token ?? CancellationToken.None, callback != null
             ? webResponse =>
             {
-                DebugLog(false);
-                var deserialized = JsonConvert.DeserializeObject<PlayerResponseStruct>(webResponse.BodyString);
-                callback.Invoke(deserialized.Player is null ? null : deserialized);
+                if (webResponse.StatusCode != HttpStatusCode.OK)
+                    callback.Invoke(JsonConvert.DeserializeObject<ProblemDetailsLite>(webResponse.BodyString));
+                else
+                    callback.Invoke(JsonConvert.DeserializeObject<PlayerResponseStruct>(webResponse.BodyString));
             }
-            : _ => DebugLog(true));
+            : _ => EmptyDebugLog());
     }
 
-    public void GetAtMe(Action<PlayerAtMeStruct?>? callback, CancellationToken? token = null)
+    public void GetAtMe(Action<OneOf<PlayerAtMeStruct, ProblemDetailsLite>>? callback, CancellationToken? token = null)
         => _webClient.GetAsync("player/@me", token ?? CancellationToken.None, callback != null
             ? webResponse =>
             {
-                DebugLog(false);
-                var deserialized = JsonConvert.DeserializeObject<PlayerAtMeStruct>(webResponse.BodyString);
-                // if deserialized is null or default struct value, invoke the callback with null
-                callback.Invoke(deserialized.Player is null ? null : deserialized);
+                if (webResponse.StatusCode != HttpStatusCode.OK)
+                    callback.Invoke(JsonConvert.DeserializeObject<ProblemDetailsLite>(webResponse.BodyString));
+                else
+                    callback.Invoke(JsonConvert.DeserializeObject<PlayerAtMeStruct>(webResponse.BodyString));
             }
-            : _ => DebugLog(true));
+            : _ => EmptyDebugLog());
 
-    public void GetStats(int userId, int pointId, Action<PlayerPointStatsStruct?> callback, CancellationToken? token = null)
-    => _webClient.GetAsync($"player/{userId}/stats/{pointId}", token ?? CancellationToken.None, webResponse =>
-    {
-        DebugLog(false);
-        var deserialized = JsonConvert.DeserializeObject<PlayerPointStatsStruct>(webResponse.BodyString);
-        callback.Invoke(deserialized.PlayerID == 0 ? null : deserialized);
-    });
+    public void GetStats(int userId, int pointId, Action<OneOf<PlayerPointStatsStruct, ProblemDetailsLite>>? callback, CancellationToken? token = null)
+        => _webClient.GetAsync($"player/{userId}/stats/{pointId}", token ?? CancellationToken.None,
+            callback != null
+                ? webResponse =>
+                {
+                    if (webResponse.StatusCode != HttpStatusCode.OK)
+                        callback.Invoke(JsonConvert.DeserializeObject<ProblemDetailsLite>(webResponse.BodyString));
+                    else
+                        callback.Invoke(JsonConvert.DeserializeObject<PlayerPointStatsStruct>(webResponse.BodyString));
+                }
+                : _ => EmptyDebugLog());
 
-    public static void DebugLog(bool isNull, [CallerMemberName] string caller = "")
-        => GSClient.Logger?.Debug($"[{Constants.GUILD_ENDPOINT_DEBUG_NAME}.{caller}] {(isNull ? "No callback" : "Callback invoked")}");
+    public static void EmptyDebugLog([CallerMemberName] string caller = "")
+        => GSClient.Logger?.Debug($"[{Constants.GUILD_ENDPOINT_DEBUG_NAME}.{caller}] Executed with no callback");
 }

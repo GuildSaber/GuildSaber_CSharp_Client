@@ -11,8 +11,9 @@ public static partial class GSClient
     public static readonly TimeSpan   s_DefaultTimeout = TimeSpan.FromSeconds(10);
     public static readonly IWebClient s_WebClient;
 
-    public static readonly GuildEndpoints Guilds;
-    public static readonly PlayerEndpoints Players;
+    public static readonly GuildEndpoints     Guilds;
+    public static readonly PlayerEndpoints    Players;
+    public static readonly RankedMapEndpoints RankedMaps;
 
     static GSClient()
     {
@@ -21,8 +22,9 @@ public static partial class GSClient
 #else
         s_WebClient = new WebClientCore(BASE_ADDRESS, s_DefaultTimeout, true);
 #endif
-        Guilds = new GuildEndpoints(s_WebClient);
-        Players = new PlayerEndpoints(s_WebClient);
+        Guilds     = new GuildEndpoints(s_WebClient);
+        Players    = new PlayerEndpoints(s_WebClient);
+        RankedMaps = new RankedMapEndpoints(s_WebClient);
     }
 
     public static ILogger? Logger { get; set; }
