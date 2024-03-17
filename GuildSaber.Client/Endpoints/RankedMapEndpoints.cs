@@ -102,7 +102,7 @@ public class RankedMapEndpoints
                             EOrder                                                                  order,
                             EIncludeFlags                                                           include,
                             bool                                                                    anyMatch,
-                            EState?                                                                 state,
+                            EPassState?                                                             passState,
                             Action<OneOf<PagedList<RankedMapWithScoreStruct>, ProblemDetailsLite>>? callback,
                             string?                                                                 search         = null,
                             uint[]?                                                                 categoryIDs    = null,
@@ -129,8 +129,8 @@ public class RankedMapEndpoints
         if (!anyMatch)
             l_UrlBuilder.Append("&anyMatch=false");
 
-        if (state != null)
-            l_UrlBuilder.Append($"&state={state}");
+        if (passState != null)
+            l_UrlBuilder.Append($"&passState={passState}");
 
         if (difficultyFrom != null)
             l_UrlBuilder.Append($"&difficulty-from={difficultyFrom}");

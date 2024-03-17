@@ -52,7 +52,7 @@ public class RankedMaps
     }
 
     [Fact]
-    public async Task GetAllAsyncReturnsNonEmptyListWithScore()
+    public async Task GetAllAsyncReturnsNonEmptyListWithScoreFromSpecificMap()
     {
         var tokenFromFile = await File.ReadAllBytesAsync("token.txt");
         var utf8Token     = Encoding.UTF8.GetString(tokenFromFile);
@@ -60,8 +60,8 @@ public class RankedMaps
 
         var tcs = new TaskCompletionSource<bool>();
         GSClient.RankedMaps.GetAllAsync(1, 1, 8, ESorter.Difficulty, EOrder.Asc,
-            EIncludeFlags.RankedMapVersions | EIncludeFlags.SongDifficulties | EIncludeFlags.Songs | EIncludeFlags.RankedScores, true, EState.All,
-            search: "seven spice", bpmFrom: 1, bpmTo: 300, durationFrom: 0, difficultyTo: 2, categoryIDs: new uint[] { 5, 6, 7 },
+            EIncludeFlags.RankedMapVersions | EIncludeFlags.SongDifficulties | EIncludeFlags.Songs | EIncludeFlags.RankedScores, true, EPassState.AllAllowed,
+            search: "a3c3", bpmFrom: 1, bpmTo: 300, durationFrom: 0, difficultyTo: 2, categoryIDs: new uint[] { 5, 6, 7 },
             callback: result =>
             {
                 Assert.True(result.TryPickT0(out var pagedList, out _), "Result is not a PagedList<RankedMap>");
@@ -76,11 +76,33 @@ public class RankedMaps
     }
 
     [Fact]
+    public async Task GetAllAsyncReturnsEmptyListFromPassStateFilter()
+    {
+        var tokenFromFile = await File.ReadAllBytesAsync("token.txt");
+        var utf8Token     = Encoding.UTF8.GetString(tokenFromFile);
+        GSClient.SetToken(utf8Token);
+
+        var tcs = new TaskCompletionSource<bool>();
+        GSClient.RankedMaps.GetAllAsync(1, 1, 8, ESorter.Difficulty, EOrder.Asc,
+            EIncludeFlags.RankedMapVersions | EIncludeFlags.SongDifficulties | EIncludeFlags.Songs | EIncludeFlags.RankedScores, true, EPassState.UnPassed,
+            search: "a3c3", bpmFrom: 1, bpmTo: 300, durationFrom: 0, difficultyTo: 2, categoryIDs: new uint[] { 5, 6, 7 },
+            callback: result =>
+            {
+                Assert.True(result.TryPickT0(out var pagedList, out _), "Result is not a PagedList<RankedMap>");
+                Assert.Empty(pagedList.Data);
+                tcs.SetResult(true);
+            });
+
+        var result = await Task.WhenAny(tcs.Task, Task.Delay(Constants.TIMEOUT));
+        Assert.True(result == tcs.Task, "Callback was not invoked");
+    }
+
+    [Fact]
     public async Task GetAllAsyncReturnsNonEmptyListWithoutScore()
     {
         var tcs = new TaskCompletionSource<bool>();
         GSClient.RankedMaps.GetAllAsync(1, 1, 8, ESorter.Difficulty, EOrder.Asc,
-            EIncludeFlags.RankedMapVersions | EIncludeFlags.SongDifficulties | EIncludeFlags.Songs | EIncludeFlags.RankedScores, true, EState.All,
+            EIncludeFlags.RankedMapVersions | EIncludeFlags.SongDifficulties | EIncludeFlags.Songs | EIncludeFlags.RankedScores, true, EPassState.All,
             search: "seven spice", bpmFrom: 1, bpmTo: 300, durationFrom: 0, difficultyTo: 2, categoryIDs: new uint[] { 5, 6, 7 },
             callback: result =>
             {
