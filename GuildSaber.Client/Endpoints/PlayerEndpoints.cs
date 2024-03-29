@@ -54,15 +54,15 @@ public class PlayerEndpoints
             }
             : _ => EmptyDebugLog());
 
-    public void GetStats(int userId, int pointId, Action<OneOf<PlayerPointStatsStruct, ProblemDetailsLite>>? callback, CancellationToken? token = null)
-        => _webClient.GetAsync($"player/{userId}/stats/{pointId}", token ?? CancellationToken.None,
+    public void GetStats(int userId, int guildId, Action<OneOf<PlayerGuildStatsStruct, ProblemDetailsLite>>? callback, CancellationToken? token = null)
+        => _webClient.GetAsync($"player/by-id/{userId}/guild-stats/{guildId}", token ?? CancellationToken.None,
             callback != null
                 ? webResponse =>
                 {
                     if (webResponse.StatusCode != HttpStatusCode.OK)
                         callback.Invoke(JsonConvert.DeserializeObject<ProblemDetailsLite>(webResponse.BodyString));
                     else
-                        callback.Invoke(JsonConvert.DeserializeObject<PlayerPointStatsStruct>(webResponse.BodyString));
+                        callback.Invoke(JsonConvert.DeserializeObject<PlayerGuildStatsStruct>(webResponse.BodyString));
                 }
                 : _ => EmptyDebugLog());
 
