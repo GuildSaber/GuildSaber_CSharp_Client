@@ -81,10 +81,24 @@ public class Players
     }
 
     [Fact]
-    public async Task GetStats()
+    public async Task GetPointStats()
     {
         var tcs = new TaskCompletionSource<bool>();
-        GSClient.Players.GetStats(1, 1, result =>
+        GSClient.Players.GetPointStats(1, 1, result =>
+        {
+            Assert.True(result.TryPickT0(out var stats, out _), "Result is not a PlayerPointStatsStruct");
+            tcs.SetResult(true);
+        });
+
+        var result = await Task.WhenAny(tcs.Task, Task.Delay(Constants.TIMEOUT));
+        Assert.True(result == tcs.Task, "Callback was not invoked");
+    }
+
+    [Fact]
+    public async Task GetGuildStats()
+    {
+        var tcs = new TaskCompletionSource<bool>();
+        GSClient.Players.GetGuildStats(1, 1, result =>
         {
             Assert.True(result.TryPickT0(out var stats, out _), "Result is not a PlayerPointStatsStruct");
             tcs.SetResult(true);

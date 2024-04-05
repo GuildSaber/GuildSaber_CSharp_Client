@@ -61,7 +61,7 @@ public class RankedMaps
         var tcs = new TaskCompletionSource<bool>();
         GSClient.RankedMaps.GetAllAsync(1, 1, 8, ESorter.Difficulty, EOrder.Asc,
             EIncludeFlags.RankedMapVersions | EIncludeFlags.SongDifficulties | EIncludeFlags.Songs | EIncludeFlags.RankedScores, true, EPassState.AllAllowed,
-            search: "a3c3", bpmFrom: 1, bpmTo: 300, durationFrom: 0, difficultyTo: 2, categoryIDs: new uint[] { 5, 6, 7 },
+            search: "a3c3", bpmFrom: 1, bpmTo: 300, durationFrom: 0, difficultyTo: 2, categoryIDs: new uint[] { 1, 2, 3, 4, 5, 6, 7 },
             callback: result =>
             {
                 Assert.True(result.TryPickT0(out var pagedList, out _), "Result is not a PagedList<RankedMap>");
@@ -103,7 +103,7 @@ public class RankedMaps
         var tcs = new TaskCompletionSource<bool>();
         GSClient.RankedMaps.GetAllAsync(1, 1, 8, ESorter.Difficulty, EOrder.Asc,
             EIncludeFlags.RankedMapVersions | EIncludeFlags.SongDifficulties | EIncludeFlags.Songs | EIncludeFlags.RankedScores, true, EPassState.All,
-            search: "seven spice", bpmFrom: 1, bpmTo: 300, durationFrom: 0, difficultyTo: 2, categoryIDs: new uint[] { 5, 6, 7 },
+            search: "seven spice", bpmFrom: 1, bpmTo: 300, durationFrom: 0, difficultyTo: 2, categoryIDs: new uint[] { 1, 2, 3, 4, 5, 6, 7 },
             callback: result =>
             {
                 Assert.True(result.TryPickT0(out var pagedList, out _), "Result is not a PagedList<RankedMap>");
