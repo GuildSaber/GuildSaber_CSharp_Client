@@ -15,6 +15,11 @@ public class Guilds
             {
                 Assert.True(result.TryPickT0(out var pagedList, out _), "Result is not a PagedList<Guild>");
                 Assert.NotEmpty(pagedList.Data);
+                pagedList.Data.ForEach(guild =>
+                {
+                    Assert.NotNull(guild);
+                    Assert.NotNull(guild.Name);
+                });
                 tcs.SetResult(true);
             });
 
@@ -26,11 +31,12 @@ public class Guilds
     public async Task GetAsyncReturnsNonNullGuild()
     {
         var tcs = new TaskCompletionSource<bool>();
-        GSClient.Guilds.GetAsync(1, true, true,
+        GSClient.Guilds.GetAsync(1, true, true, true,
             result =>
             {
                 Assert.True(result.TryPickT0(out var guild, out _), "Result is not a Guild");
                 Assert.NotNull(guild);
+                Assert.NotNull(guild.SimplePoints);
                 tcs.SetResult(true);
             });
 

@@ -98,7 +98,7 @@ public class Players
     public async Task GetGuildStats()
     {
         var tcs = new TaskCompletionSource<bool>();
-        GSClient.Players.GetGuildStats(1, 1, result =>
+        GSClient.Players.GetGuildStats(9, 1, result =>
         {
             Assert.True(result.TryPickT0(out var stats, out _), "Result is not a PlayerPointStatsStruct");
             tcs.SetResult(true);

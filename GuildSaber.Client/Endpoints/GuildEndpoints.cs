@@ -37,7 +37,7 @@ public class GuildEndpoints
         var l_UrlBuilder = new StringBuilder();
         l_UrlBuilder.Append("guilds");
         l_UrlBuilder.AppendFormat("?page={0}&pageSize={1}&sortBy={2}&order={3}&include={4}", page, pageSize, (uint)sortBy, (uint)order,
-            (uint)((includeRankedCount ? EIncludeFlags.RankedMaps : EIncludeFlags.None) & (includeMemberCount ? EIncludeFlags.Members : EIncludeFlags.None)));
+            (uint)((includeRankedCount ? EIncludeFlags.RankedMaps : EIncludeFlags.None) | (includeMemberCount ? EIncludeFlags.Members : EIncludeFlags.None)));
 
         if (guildTypes.HasValue)
             l_UrlBuilder.AppendFormat("&guildTypes={0}", (int)guildTypes.Value);
@@ -71,12 +71,13 @@ public class GuildEndpoints
         uint                                      guildID,
         bool                                      includeRankedCount,
         bool                                      includeMemberCount,
+        bool                                      includeSimplePoints,
         Action<OneOf<Guild, ProblemDetailsLite>>? callback = null,
         CancellationToken?                        token    = null)
     {
         var l_UrlBuilder = new StringBuilder();
         l_UrlBuilder.AppendFormat("guild/by-id/{0}", guildID);
-        l_UrlBuilder.AppendFormat("?include={0}",    (uint)((includeRankedCount ? EIncludeFlags.RankedMaps : EIncludeFlags.None) & (includeMemberCount ? EIncludeFlags.Members : EIncludeFlags.None)));
+        l_UrlBuilder.AppendFormat("?include={0}",    (uint)((includeRankedCount ? EIncludeFlags.RankedMaps : EIncludeFlags.None) | (includeMemberCount ? EIncludeFlags.Members : EIncludeFlags.None) | (includeSimplePoints ? EIncludeFlags.Points : EIncludeFlags.None)));
 
         _webClient.GetAsync(l_UrlBuilder.ToString(), token ?? CancellationToken.None, callback != null
             ? webResponse =>
