@@ -72,12 +72,13 @@ public class GuildEndpoints
         bool                                      includeRankedCount,
         bool                                      includeMemberCount,
         bool                                      includeSimplePoints,
+        bool                                      includeCategories,
         Action<OneOf<Guild, ProblemDetailsLite>>? callback = null,
         CancellationToken?                        token    = null)
     {
         var l_UrlBuilder = new StringBuilder();
         l_UrlBuilder.AppendFormat("guild/by-id/{0}", guildID);
-        l_UrlBuilder.AppendFormat("?include={0}",    (uint)((includeRankedCount ? EIncludeFlags.RankedMaps : EIncludeFlags.None) | (includeMemberCount ? EIncludeFlags.Members : EIncludeFlags.None) | (includeSimplePoints ? EIncludeFlags.Points : EIncludeFlags.None)));
+        l_UrlBuilder.AppendFormat("?include={0}",    (uint)((includeRankedCount ? EIncludeFlags.RankedMaps : EIncludeFlags.None) | (includeMemberCount ? EIncludeFlags.Members : EIncludeFlags.None) | (includeSimplePoints ? EIncludeFlags.Points : EIncludeFlags.None) | (includeCategories ? EIncludeFlags.Categories : EIncludeFlags.None)));
 
         _webClient.GetAsync(l_UrlBuilder.ToString(), token ?? CancellationToken.None, callback != null
             ? webResponse =>

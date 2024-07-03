@@ -2,6 +2,7 @@
 using GuildSaber.ApiStruct;
 using GuildSaber.Client.Types;
 using GuildSaber.Enums;
+using GuildSaber.Models;
 using Newtonsoft.Json;
 using OneOf;
 using System;
@@ -18,6 +19,24 @@ public class RankedMapEndpoints
 
     public RankedMapEndpoints(IWebClient webClient)
         => _webClient = webClient;
+
+    internal class RankedMapContainer
+    {
+        public RankedMap? RankedMap { get; set; }
+    }
+
+    public void GetByHashAsync(uint guildId, string hash, string mode, int difficulty, Action<OneOf<RankedMap, ProblemDetailsLite>, string, string> callback, CancellationToken? token = null)
+    {
+        string l_Url = $"ranked-map/by-hash/{hash}/{mode}/{difficulty}?guildId={guildId}";
+
+        _webClient.GetAsync(l_Url, token ?? CancellationToken.None, webResponse =>
+        {
+            if (webResponse.StatusCode != HttpStatusCode.OK)
+                callback.Invoke(JsonConvert.DeserializeObject<ProblemDetailsLite>(webResponse.BodyString), l_Url, webResponse.BodyString);
+            else
+                callback.Invoke(JsonConvert.DeserializeObject<RankedMapContainer>(webResponse.BodyString).RankedMap, l_Url, webResponse.BodyString);
+        });
+    }
 
     public void GetAsync(uint id, EIncludeFlags includeFlags, Action<OneOf<RankedMapWithScoreStruct, ProblemDetailsLite>>? callback, CancellationToken? token = null)
     {

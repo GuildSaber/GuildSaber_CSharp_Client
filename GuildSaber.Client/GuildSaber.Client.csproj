@@ -19,39 +19,18 @@
     </PropertyGroup>
 
     <Target Name="CheckProjectDirectory" BeforeTargets="Build" Condition="'$(IsGuildSaberMod)' == 'true'">
-        <Message Text="The project is in the GuildSaber_Mod directory. Compiling with the Unity dependencies" Importance="high"/>
+        <Message Text="The project is in the GuildSaber_Mod directory. Compiling with the Unity dependencies" Importance="high" />
     </Target>
 
     <Target Name="CheckProjectDirectory" BeforeTargets="Build" Condition="'$(IsGuildSaberMod)' == 'false'">
-        <Message Text="The project is not the GuildSaber_Mod directory. Compiling without any unity dependencies" Importance="high"/>
+        <Message Text="The project is not the GuildSaber_Mod directory. Compiling without any unity dependencies" Importance="high" />
         <!-- display actual value of ParentParentDirectoryName -->
-        <Message Text="ParentDirectoryName: $(ParentParentDirectoryName)" Importance="high"/>
+        <Message Text="ParentDirectoryName: $(ParentParentDirectoryName)" Importance="high" />
     </Target>
 
     <PropertyGroup Condition="'$(IsGuildSaberMod)'">
         <DefineConstants>CP_SDK_UNITY</DefineConstants>
     </PropertyGroup>
-
-    <ItemGroup Condition="'$(IsGuildSaberMod)'">
-        <Reference Include="ChatPlexSDK_BS">
-            <HintPath>$(BeatSaberDir)\Plugins\ChatPlexSDK_BS.dll</HintPath>
-            <Private>False</Private>
-            <SpecificVersion>False</SpecificVersion>
-        </Reference>
-        <Reference Include="UnityEngine.CoreModule">
-            <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="UnityEngine.UnityWebRequestModule">
-            <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.UnityWebRequestModule.dll</HintPath>
-            <Private>False</Private>
-            <SpecificVersion>False</SpecificVersion>
-        </Reference>
-        <Reference Include="UnityEngine">
-            <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-    </ItemGroup>
 
     <ItemGroup Condition="'$(IsGuildSaberMod)' == 'false'">
         <Compile Include="..\ChatPlexSDK\Logging\ILogger.cs">
@@ -409,12 +388,27 @@
 
 
     <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
-        <PackageReference Include="OneOf" Version="3.0.263"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="OneOf" Version="3.0.263" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\GuildSaber_Models\GuildSaber.Models.csproj"/>
+        <ProjectReference Include="..\GuildSaber_Models\GuildSaber.Models.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="ChatPlexSDK_BS">
+        <HintPath>..\..\..\..\..\Desktop\Files\BeatSaber\BSManager\BSInstances\1.34.2\Plugins\ChatPlexSDK_BS.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine">
+        <HintPath>..\..\..\..\..\Desktop\Files\BeatSaber\BSManager\BSInstances\1.34.2\Beat Saber_Data\Managed\UnityEngine.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.CoreModule">
+        <HintPath>..\..\..\..\..\Desktop\Files\BeatSaber\BSManager\BSInstances\1.34.2\Beat Saber_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      </Reference>
+      <Reference Include="UnityEngine.JSONSerializeModule">
+        <HintPath>..\..\..\..\..\Desktop\Files\BeatSaber\BSManager\BSInstances\1.34.2\Beat Saber_Data\Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>
