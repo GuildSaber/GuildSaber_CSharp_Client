@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         <ParentParentDirectoryName>$([System.IO.Path]::GetFileName('$([System.IO.Path]::GetDirectoryName('$([System.IO.Path]::GetDirectoryName('$(MSBuildProjectDirectory)'))'))'))</ParentParentDirectoryName>
         <LocalRefsDir Condition="Exists('..\Refs')">..\Refs</LocalRefsDir>
-        <BeatSaberDir>$(BeatSaberDir)</BeatSaberDir>
+        <BeatSaberDir>C:\Users\lphel\BSManager\BSInstances\1.34.2</BeatSaberDir>
     </PropertyGroup>
 
     <PropertyGroup>
